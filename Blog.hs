@@ -26,6 +26,7 @@ data Posts = Posts { posts :: [Post] } deriving (Eq, Show, Data, Typeable)
 $(deriveSafeCopy 0 'base ''Post)
 $(deriveSafeCopy 0 'base ''Posts)
 
+-- addPost :: Title -> Content -> State Posts Post
 addPost :: Title -> Content -> Update Posts Post
 addPost title content = do
   Posts ps <- get
@@ -34,6 +35,7 @@ addPost title content = do
   put $ Posts (newPost:ps)
   return newPost
 
+-- getPosts :: Reader Posts [Post]
 getPosts :: Query Posts [Post]
 getPosts = posts <$> ask
 
